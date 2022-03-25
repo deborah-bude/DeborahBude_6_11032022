@@ -1,2 +1,5 @@
 //Mettre le code JavaScript lié à la page photographer.html
-console.log(URLSearchParams.get('id'))
+const searchParams = new URLSearchParams(window.location.href);
+const photographerId = searchParams.get('id')
+console.log(photographerId);
+
