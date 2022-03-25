@@ -20,24 +20,19 @@ async function getPhotographers() {
             "portrait": "account.png"
         },
     ]*/
-    var photographers;
-    const URLRequest = '../data/photographers.json';
-    var request = new XMLHttpRequest();
-    request.open('GET', URLRequest);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function () {
-        response = request.response;
-        photographers = response['photographers'];
-        console.log(photographers['1']);
-    }
-    // et bien retourner le tableau photographers seulement une fois
-    return ({
-        // photographers: [1, 2, 3, 4, 5, 6]
-        // photographers: [photographers, ...photographers, ...photographers]
-        // photographers: [photographers]
-        photographers
+    let photographers;
+    return fetch('../data/photographers.json')
+    .then(function (response) {
+        return response.json()
     })
+    .then((object) => {
+        return ({
+            photographers: object.photographers
+        })
+    })
+    .catch(function (error) {
+        console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+    });
 }
 
 async function displayData(photographers) {
