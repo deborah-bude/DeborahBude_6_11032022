@@ -54,7 +54,7 @@ function photographerTemplate (photographerData) {
     const picture = `assets/photographers/${portrait}`;
     const img = document.createElement( 'img' );
     img.setAttribute("src", picture)
-    img.setAttribute("alt", picture)
+    img.setAttribute("alt", name)
     photographHeader.appendChild(img);
 }
 

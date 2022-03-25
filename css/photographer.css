@@ -3,9 +3,35 @@
 }
 
 .photograph-header {
-    background-color: #FAFAFA;
-    height: 300px;
+    background-color: #fafafa;
+    min-height: 300px;
     margin: 0 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 50px;
+}
+
+.photograph-header .photographer__origin {
+    font-size: 24px;
+    line-height: 31px;
+}
+
+.photograph-header .photographer__tagline {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    color: #525252;
+}
+
+/* .photograph-presentation {
+    width: 33%
+} */
+
+.photograph-header img {
+    max-height: 100%;
+    width: auto;
 }
 
 .contact_button {
@@ -16,14 +42,14 @@
     width: 170px;
     height: 70px;
     border: none;
-    background-color: #901C1C;
+    background-color: #901c1c;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .modal {
     border-radius: 5px;
-    background-color: #DB8876;
+    background-color: #db8876;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -56,7 +82,7 @@ form {
 }
 
 form label {
-    color: #312E2E;
+    color: #312e2e;
     font-size: 36px;
 }
 
