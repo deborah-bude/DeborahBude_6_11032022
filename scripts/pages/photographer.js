@@ -1,22 +1,6 @@
 const searchParams = new URLSearchParams(window.location.search);
 const photographerId = searchParams.get('id')
 
-async function getPhotographers() {
-    let photographers;
-    return fetch('./data/photographers.json')
-    .then(function (response) {
-        return response.json()
-    })
-    .then((object) => {
-        return ({
-            photographers: object.photographers
-        })
-    })
-    .catch(function (error) {
-        console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-    });
-}
-
 async function init() {
     const { photographers } = await getPhotographers();
     const photographerHeader = document.querySelector('.photograph-header');
