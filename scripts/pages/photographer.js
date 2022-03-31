@@ -1,15 +1,17 @@
 const searchParams = new URLSearchParams(window.location.search);
-const photographerId = searchParams.get('id')
+const photographerId = searchParams.get('id');
 
 async function init() {
     const { photographers } = await getPhotographers();
     const photographerHeader = document.querySelector('.photograph-header');
     let redirection = false;
     photographers.forEach(photographer => {
-        if (photographer.id === parseInt(photographerId)) {
+        const id = parseInt(photographerId)
+        if (photographer.id === id) {
+            redirection = true;
             const photographerArticle = photographerTemplate(photographer);
             photographerHeader.innerHTML = photographerArticle;
-            redirection = true;
+            mediasTemplate(id);
         }
     });
     if (!redirection) {
@@ -31,9 +33,22 @@ function photographerTemplate (photographerData) {
         </p>
     </div>
     <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-    <img src="assets/photographers/${portrait}" alt="${name}">`
+    <img src="assets/photographers/${portrait}" alt="${name}">`;
 
     return photographer_description;
+}
+
+async function mediasTemplate(id) {
+    const allMedias = await getMedias();
+    let photographMedias = [];
+    console.log(allMedias[0].photographerId, id);
+    allMedias.forEach(media => {
+        if (media.photographerId === id) {
+            photographMedias.push(media)
+        }
+    });
+    
+    console.log(photographMedias);
 }
 
 init()
