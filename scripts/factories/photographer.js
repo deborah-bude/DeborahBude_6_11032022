@@ -3,7 +3,7 @@ function photographerFactory(data) {
 
     const picture = `assets/photographers/${portrait}`;
     const photographer = `<article>
-                            <a href="/photographer.html?id=${id}">
+                            <a href="./photographer.html?id=${id}">
                                 <img src="${picture}" alt="${name}">
                                 <h2>${name}</h2>
                             </a>
