@@ -9,7 +9,7 @@ async function displayData(photographers) {
         articles.push(userCardDOM);
     });
 
-    photographersSection.innerHTML = articles.join('')
+    photographersSection.innerHTML = articles.join('');
 };
 
 async function init() {
