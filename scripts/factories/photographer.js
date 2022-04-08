@@ -2,7 +2,9 @@ function photographerFactory(data) {
     const { id, name, portrait, city, country, tagline, price } = data;
 
     const picture = `assets/photographers/${portrait}`;
-    const photographer = `<article>
+
+    function getUserCardDOM() {
+        const photographer = `<article>
                             <a href="./photographer.html?id=${id}">
                                 <img src="${picture}" alt="${name}">
                                 <h2>${name}</h2>
@@ -17,5 +19,8 @@ function photographerFactory(data) {
                                 ${price}€/jour
                             </p>
                         </article>`;
-    return photographer;
+        return photographer;
+    }
+    
+    return { id, name, portrait, city, country, tagline, price, getUserCardDOM }
 }

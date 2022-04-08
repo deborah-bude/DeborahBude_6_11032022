@@ -5,7 +5,7 @@ async function displayData(photographers) {
 
     photographers.forEach((photographer) => {
         const photographerModel = photographerFactory(photographer);
-        const userCardDOM = photographerModel;
+        const userCardDOM = photographerModel.getUserCardDOM();
         articles.push(userCardDOM);
     });
 

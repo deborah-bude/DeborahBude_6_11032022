@@ -4,31 +4,44 @@ const photographerId = searchParams.get('id');
 async function init() {
     const { photographers } = await getPhotographers();
     const photographerHeader = document.querySelector('.photograph-header');
-    let redirection = false;
+    // let redirection = false;
     const id = parseInt(photographerId);
-    let photographerName;
-    let photographerPrice;
+    //let photographerName;
+    //let photographerPrice;
 
-    photographers.forEach(photographer => {
-        if (photographer.id === id) {
-            redirection = true;
-            photographerName = photographer.name;
-            photographerPrice = photographer.price;
-            const photographerArticle = photographerTemplate(photographer);
-            photographerHeader.innerHTML = photographerArticle;
-
-            const {articleMedias, numberLikes} = mediasTemplate(id, photographer.name);
-        }
-    });
-
-    if (!redirection) {
-        location.href = './';
+    const photographer = photographers.find(p => p.id === id);
+    
+    if (!photographer) {
+        return location.href = './';
     }
+
+    const photographerName = photographer.name;
+    const photographerPrice = photographer.price;
+    const photographerArticle = photographerTemplate(photographer);
+    photographerHeader.innerHTML = photographerArticle;
+
+    // const {articleMedias, numberLikes} = mediasTemplate(id, photographer.name);
+
+    // photographers.forEach(photographer => {
+    //     if (photographer.id === id) {
+    //         redirection = true;
+    //         photographerName = photographer.name;
+    //         photographerPrice = photographer.price;
+    //         const photographerArticle = photographerTemplate(photographer);
+    //         photographerHeader.innerHTML = photographerArticle;
+
+    //         const {articleMedias, numberLikes} = mediasTemplate(id, photographer.name);
+    //     }
+    // });
+
+    // if (!redirection) {
+    //     location.href = './';
+    // }
 
     const {articleMedias, numberLikes} = await mediasTemplate(id, photographerName);
     document.querySelector('.photograph-medias').innerHTML = articleMedias.join('');
 
-    const divAllLikes = await showAllLikes(numberLikes, photographerPrice);
+    const divAllLikes = showAllLikes(numberLikes, photographerPrice);
     document.querySelector('.totalLikes').innerHTML = divAllLikes;
 };
 
@@ -97,12 +110,12 @@ async function mediasTemplate(id, photographerName) {
     return ({articleMedias, numberLikes});
 }
 
-async function showAllLikes(totalLikesNumber, price) {
-    return `<div>
+function showAllLikes(totalLikesNumber, price) {
+    return `<div class="likes">
                 <p>${totalLikesNumber}</p>
                 <i aria-label="Nombre total de likes de toutes les photos" class="fa-solid fa-heart"></i>
             </div>
-            <p>${price}€/jour</p>`;
+            <p class="price">${price}€/jour</p>`;
 }
 
 init()

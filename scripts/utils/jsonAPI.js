@@ -14,6 +14,7 @@ async function getPhotographers() {
     });
 }
 
+//tri getMediasForPhotographer(id)
 async function getMedias() {
     let allMedias;
     return fetch('./data/photographers.json')
