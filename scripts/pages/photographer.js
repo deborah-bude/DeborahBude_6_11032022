@@ -4,10 +4,7 @@ const photographerId = searchParams.get('id');
 async function init() {
     const { photographers } = await getPhotographers();
     const photographerHeader = document.querySelector('.photograph-header');
-    // let redirection = false;
     const id = parseInt(photographerId);
-    //let photographerName;
-    //let photographerPrice;
 
     const photographer = photographers.find(p => p.id === id);
     
@@ -19,24 +16,6 @@ async function init() {
     const photographerPrice = photographer.price;
     const photographerArticle = photographerTemplate(photographer);
     photographerHeader.innerHTML = photographerArticle;
-
-    // const {articleMedias, numberLikes} = mediasTemplate(id, photographer.name);
-
-    // photographers.forEach(photographer => {
-    //     if (photographer.id === id) {
-    //         redirection = true;
-    //         photographerName = photographer.name;
-    //         photographerPrice = photographer.price;
-    //         const photographerArticle = photographerTemplate(photographer);
-    //         photographerHeader.innerHTML = photographerArticle;
-
-    //         const {articleMedias, numberLikes} = mediasTemplate(id, photographer.name);
-    //     }
-    // });
-
-    // if (!redirection) {
-    //     location.href = './';
-    // }
 
     const {articleMedias, numberLikes} = await mediasTemplate(id, photographerName);
     document.querySelector('.photograph-medias').innerHTML = articleMedias.join('');
@@ -65,30 +44,22 @@ function photographerTemplate (photographerData) {
 }
 
 async function mediasTemplate(id, photographerName) {
-    const allMedias = await getMedias();
+    const allMedias = await getMediasForPhotographer(id);
     let numberLikes = 0;
-    let photographMedias = [];
     let articleMedias = [];
-    allMedias.forEach(media => {
-        if (media.photographerId === id) {
-            photographMedias.push(media)
-        }
-    });
     
-    photographMedias.forEach( media => {
+    allMedias.forEach( media => {
         const { title, image, likes, video } = media;
         let baliseMedia;
         let classMedia;
         if (media.image) {
-            pathMedia = `./assets/photos/${photographerName}/${image}`;
             classMedia = 'image';
-            baliseMedia = `<img src="${pathMedia}" alt="${title}">`
+            baliseMedia = `<img src="./assets/photos/${photographerName}/${image}" alt="${title}">`
         } else if (media.video) {
-            pathMedia = `./assets/photos/${photographerName}/${video}`;
             classMedia = 'video';
             baliseMedia = 
             `<video width="320" height="240" id="video">
-                <source src="${pathMedia}" type="video/mp4">
+                <source src="./assets/photos/${photographerName}/${video}" type="video/mp4">
             </video>`;
         }
         numberLikes = numberLikes + likes;
