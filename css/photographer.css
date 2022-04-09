@@ -4,6 +4,16 @@
 
 #contact_modal {
     display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
 }
 
 .photograph-header {
@@ -16,9 +26,13 @@
     padding: 25px 50px;
 }
 
+.photograph-presentation {
+    max-width: 33%;
+}
+
 .photograph-presentation h1 {
     font-weight: 400;
-    font-size: 6.4em;
+    font-size: 4.8em;
     color: #d3573c;
     margin: 0 0 10px;
 }
@@ -38,13 +52,14 @@
 .photograph-header img {
     max-height: 100%;
     width: auto;
+    max-width: 33%;
 }
 
 .totalLikes {
     position: fixed;
     bottom: 0;
     right: 100px;
-    background: #DB8876;
+    background: #db8876;
     border-radius: 5px 5px 0 0;
     display: flex;
     flex-wrap: wrap;
@@ -52,6 +67,7 @@
     align-items: center;
     z-index: 2;
     font-size: 1.8em;
+    padding: 0 10px;
 }
 
 .photograph-medias {
@@ -104,6 +120,14 @@
     margin-left: 5px;
 }
 
+.likes {
+    margin-right: 50px;
+}
+
+.likes p {
+    display: inline-block;
+}
+
 .contact_button {
     font-size: 2em;
     font-weight: bold;
@@ -126,7 +150,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 35px;
-    margin: auto;
+    height: 450px;
+    overflow-y: scroll;
 }
 
 .modal header {
@@ -139,7 +164,7 @@
 }
 
 .modal header h2 {
-    font-size: 6.4em;
+    font-size: 4.8em;
     font-weight: normal;
     text-align: center;
 }
@@ -153,7 +178,7 @@ form {
 
 form label {
     color: #312e2e;
-    font-size: 3.6em;
+    font-size: 3.6rem;
 }
 
 form div {
@@ -164,9 +189,71 @@ form div {
     margin-bottom: 26px;
 }
 
-form input {
+form input,
+form textarea {
     width: 100%;
-    height: 68px;
+    padding: 20px 10px;
     border: none;
     border-radius: 5px;
+}
+
+.formData[data-error]::after {
+    content: attr(data-error);
+    font-size: 1.2em;
+    color: #000000;
+    display: block;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    text-align: right;
+    line-height: 0.3;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.formData[data-error-visible="true"]::after {
+    opacity: 1;
+}
+
+@media screen and (max-width: 800px) {
+    .photograph-header {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .photograph-header img {
+        order: 1;
+    }
+
+    .photograph-presentation {
+        max-width: none;
+        text-align: center;
+        order: 2;
+    }
+
+    .contact_button {
+        order: 3;
+    }
+
+    .photograph-medias {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .photograph-header {
+        padding: 15px 25px;
+    }
+
+    .photograph-presentation h1 {
+        font-size: 2.8em;
+    }
+
+    .photograph-presentation .photographer__origin,
+    .photograph-header .photographer__tagline {
+        font-size: 1.6em;
+    }
+
+    .photograph-medias {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
