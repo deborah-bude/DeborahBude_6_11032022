@@ -55,6 +55,20 @@
     max-width: 33%;
 }
 
+.filter label, .filter select {
+    font-weight: 700;
+    font-size: 1.8em;
+    line-height: 23px;
+}
+
+.filter select {
+    background: #911C1C;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    border: none;
+}
+
 .totalLikes {
     position: fixed;
     bottom: 0;

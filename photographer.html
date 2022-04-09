@@ -1,57 +1,67 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <link href="./css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="./assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css" integrity="sha384-/frq1SRXYH/bSyou/HUp/hib7RVN1TawQYja658FEOodR/FQBKVqT9Ol+Oz3Olq5" crossorigin="anonymous"/>
-    <title>Fisheye - photographe </title>
-  </head>
-  <body>
-    <header>
-      <a href="./"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page"/></a>
-    </header>
-    <main id="main">
-      <div class="photograph-header"></div>
-      
-      <div class="totalLikes"></div>
 
-      <section class="filter">
-        <p>Trier par :</p>
-      </section>
+<head>
+  <link href="./css/style.css" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css"
+    integrity="sha384-/frq1SRXYH/bSyou/HUp/hib7RVN1TawQYja658FEOodR/FQBKVqT9Ol+Oz3Olq5" crossorigin="anonymous" />
+  <title>Fisheye - photographe </title>
+</head>
 
-      <section class="photograph-medias"></section>
-    </main>
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2 class="contact_title">Contactez-moi</h2>
-          <img alt="Close Contact form" src="assets/icons/close.svg" onclick="closeModal()" />
-        </header>
-				<form>
-          <div class="formData">
-            <label for="first">Prénom</label><br>
-            <input class="text-control" type="text" id="first" name="first" minlength="2" /><br>
-          </div>
-          <div class="formData">
-            <label for="last">Nom</label><br>
-            <input class="text-control" type="text" id="last" name="last" /><br>
-          </div>
-          <div class="formData">
-            <label for="email">E-mail</label><br>
-            <input class="text-control" type="email" id="email" name="email" /><br>
-          </div>
-          <div class="formData">
-            <label for="message">Message</label><br>
-            <textarea class="text-control" id="message" name="message" cols="30" rows="10"></textarea>
-          </div>
-          <button class="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div>
-    <script src="./scripts/utils/jsonAPI.js"></script>
-    <script src="./scripts/pages/photographer.js"></script>
-    <script src="./scripts/utils/contactForm.js"></script>
-  </body>
+<body>
+  <header>
+    <a href="./"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" /></a>
+  </header>
+  <main id="main">
+    <div class="photograph-header"></div>
+
+    <div class="totalLikes"></div>
+
+    <section class="filter">
+      <label for="filter_medias">Trier par </label>
+
+      <select name="filter_medias" id="filter_medias">
+        <option value="favorite">Popularité</option>
+        <option value="date">Date</option>
+        <option value="title">Titre</option>
+      </select>
+    </section>
+
+    <section class="photograph-medias"></section>
+  </main>
+  <div id="contact_modal">
+    <div class="modal">
+      <header>
+        <h2 class="contact_title">Contactez-moi</h2>
+        <img alt="Close Contact form" src="assets/icons/close.svg" onclick="closeModal()" />
+      </header>
+      <form>
+        <div class="formData">
+          <label for="first">Prénom</label><br>
+          <input class="text-control" type="text" id="first" name="first" minlength="2" required /><br>
+        </div>
+        <div class="formData">
+          <label for="last">Nom</label><br>
+          <input class="text-control" type="text" id="last" name="last" required /><br>
+        </div>
+        <div class="formData">
+          <label for="email">E-mail</label><br>
+          <input class="text-control" type="email" id="email" name="email" required /><br>
+        </div>
+        <div class="formData">
+          <label for="message">Message</label><br>
+          <textarea class="text-control" id="message" name="message" cols="30" rows="10" required></textarea>
+        </div>
+        <button class="contact_button">Envoyer</button>
+      </form>
+    </div>
+  </div>
+  <script src="./scripts/utils/jsonAPI.js"></script>
+  <script src="./scripts/pages/photographer.js"></script>
+  <script src="./scripts/utils/contactForm.js"></script>
+</body>
+
 </html>
