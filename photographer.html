@@ -31,11 +31,17 @@
     </section>
 
     <section class="photograph-medias"></section>
+    <section class="popup">
+      <i class="fa-solid fa-xmark" id = "close" aria-label="Fermer la pop up"></i>
+      <i class="fa-solid fa-angle-left" id = "prev" aria-label="Média précédent"></i>
+      <div></div>
+      <i class="fa-solid fa-angle-right" id = "next" aria-label="Média suivant"></i>
+    </section>
   </main>
   <div id="contact_modal">
     <div class="modal">
       <header>
-        <h2 class="contact_title">Contactez-moi</h2>
+        <h2 class="contact_title" aria-labelledby="contact_modal">Contactez-moi</h2>
         <img alt="Close Contact form" src="assets/icons/close.svg" onclick="closeModal()" />
       </header>
       <form>

@@ -100,7 +100,7 @@
     object-position: center;
 }
 
-.photograph-medias__items a {
+.photograph-medias__items .photograph-medias__content {
     position: relative;
     display: inline-block;
     width: 100%;
@@ -109,7 +109,7 @@
     overflow: hidden;
 }
 
-.photograph-medias__items a.video:before {
+.photograph-medias__items .photograph-medias__content.video:before {
     content: "\f144";
     position: absolute;
     top: 50%;
@@ -140,6 +140,47 @@
 
 .likes p {
     display: inline-block;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: white;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.popup i {
+    font-size: 24px;
+    text-align: center;
+    width: 10%;
+    color: #901C1C;
+}
+
+#close {
+    position: absolute;
+    top: 5%;
+    right: 0;
+}
+
+.popup div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    max-height: 90%;
+    width: 80%;
+}
+
+.popup img {
+    max-height: 100%;
+    object-fit: contain;
+    max-width: 100%;
+    object-position: center;
 }
 
 .contact_button {

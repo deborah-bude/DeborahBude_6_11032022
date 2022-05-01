@@ -17,6 +17,11 @@ header {
     height: 90px;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 h1 {
     color: #901c1c;
     margin-right: 100px;
