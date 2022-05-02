@@ -19,10 +19,12 @@ async function init() {
 
     const { allMedias, articleMedias, numberLikes } = await mediasTemplate(id, photographerName);
     document.querySelector('.photograph-medias').innerHTML = articleMedias.join('');
+    
+    const popupFactory = new PopupFactory(photographerName, allMedias)
 
     const articleMedia = document.querySelectorAll(".photograph-medias__items ");
     articleMedia.forEach(article => {
-        article.addEventListener("click", () => mediaPopup(photographerName, article, allMedias))
+        article.addEventListener("click", () => popupFactory.mediaPopup(article))
     });
 
     const divAllLikes = showAllLikes(numberLikes, photographerPrice);
@@ -76,59 +78,6 @@ async function mediasTemplate(id, photographerName) {
     return ({ allMedias, articleMedias, numberLikes });
 }
 
-function mediaPopup(photographerName, article, allMedias) {
-    const attribute = parseInt(article.getAttribute("data-id"));
-    const mediaIndex = allMedias.findIndex(media => media.id === attribute);
-    let controlVideo = true;
-
-    const { baliseMedia } = mediaFactory(allMedias[mediaIndex], photographerName, controlVideo);
-
-    popUpImg = document.querySelector(".popup div");
-    popUpImg.parentElement.style.display = "flex";
-    document.querySelector("body").style.overflowY = "hidden";
-    popUpImg.innerHTML = baliseMedia;
-
-    changeMediaPopup('prev', mediaIndex, allMedias[mediaIndex - 1], photographerName, controlVideo, popUpImg);
-    
-    changeMediaPopup('next', mediaIndex, allMedias[mediaIndex + 1], photographerName, controlVideo, popUpImg);
-
-    const closePopup = document.querySelector("#close");
-    closePopup.addEventListener("click", () => {
-        popUpImg.parentElement.style.display = "none";
-        document.querySelector("body").style.overflowY = "auto"
-    });
-}
-
-function changeMediaPopup(direction, mediaIndex, AllMediaIndex, photographerName, controlVideo, popUpImg) {
-    let directionMedia;
-
-    if (direction === 'next') {
-        directionMedia = document.querySelector("#next");
-        newMediaIndex = mediaIndex + 1
-    } else {
-        directionMedia = document.querySelector("#prev");
-        newMediaIndex = mediaIndex - 1
-    }
-
-    const newMediaHTML = mediaFactory(AllMediaIndex, photographerName, controlVideo).baliseMedia;
-    directionMedia.addEventListener("click", () => newMediaPopup(popUpImg, newMediaHTML, direction, mediaIndex));
-}
-
-function newMediaPopup(popUpImg, newMedias, direction, mediaIndex) {
-    let newMediaIndex;
-
-    if (direction === 'next') {
-        newMediaIndex = mediaIndex + 1
-    } else {
-        newMediaIndex = mediaIndex - 1
-    }
-
-    console.log(newMediaIndex);
-    popUpImg.innerHTML = newMedias;
-    
-    return newMediaIndex;
-}
-
 function showAllLikes(totalLikesNumber, price) {
     return `<div class="likes">
                 <p>${totalLikesNumber}</p>
@@ -137,10 +86,16 @@ function showAllLikes(totalLikesNumber, price) {
             <p class="price">${price}€/jour</p>`;
 }
 
+/**
+ * @param {Object} media 
+ * @param {string} photographerName 
+ * @param {boolean} controls 
+ * @returns {void}
+ */
 function mediaFactory(media, photographerName, controls) {
     let classMedia;
     let baliseMedia;
-    
+
     if (media.image) {
         classMedia = 'image';
         baliseMedia = `<img loading="lazy" src="./assets/photos/${photographerName}/${media.image}" alt="${media.title}">`
