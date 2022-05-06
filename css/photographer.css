@@ -130,6 +130,14 @@
     font-size: 2.2em;
 }
 
+.photograph-medias__likes {
+    display: flex;
+}
+
+.photograph-medias__likes p {
+    margin: 0;
+}
+
 .photograph-medias__likes i {
     margin-left: 5px;
 }
