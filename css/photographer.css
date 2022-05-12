@@ -107,6 +107,7 @@
     height: 300px;
     border-radius: 5px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .photograph-medias__items .photograph-medias__content.video:before {
@@ -132,6 +133,7 @@
 
 .photograph-medias__likes {
     display: flex;
+    cursor: pointer;
 }
 
 .photograph-medias__likes p {
@@ -140,6 +142,7 @@
 
 .photograph-medias__likes i {
     margin-left: 5px;
+    cursor: pointer;
 }
 
 .likes {

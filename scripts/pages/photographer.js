@@ -22,17 +22,18 @@ async function init() {
     
     const popupFactory = new PopupFactory(photographerName, allMedias)
 
-    // const articleMedia = document.querySelectorAll(".photograph-medias__items");
-    // articleMedia.forEach(article => {
-    //     article.addEventListener("click", () => popupFactory.mediaPopup(article))
-    // });
+    const articleMedia = document.querySelectorAll(".photograph-medias__content");
+    articleMedia.forEach(article => {
+        article.addEventListener("click", () => popupFactory.mediaPopup(article))
+    });
 
     const divAllLikes = showAllLikes(numberLikes, photographerPrice);
-    // console.log(numberLikes, numberLikes+1)
     document.querySelector('.totalLikes').innerHTML = divAllLikes;
 
-    const allMediasLikes = document.querySelectorAll(".photograph-medias__likes ");
+    const filterMedias = document.getElementById("filter_medias");
+    filterMedias.addEventListener('input', () => filterMediaby(allMedias, filterMedias.value))
 
+    const allMediasLikes = document.querySelectorAll(".photograph-medias__likes ");
     allMediasLikes.forEach(mediaLike => {
         mediaLike.addEventListener("click", () => {
             let allLikes = document.querySelector(".numberLikes");
@@ -83,8 +84,8 @@ async function mediasTemplate(id, photographerName) {
         const { baliseMedia, classMedia } = mediaFactory(media, photographerName, controlVideo);
         numberLikes = numberLikes + likes;
         const article =
-            `<article class="photograph-medias__items" data-id="${id}">
-                <div class="${classMedia} photograph-medias__content">${baliseMedia}</div>
+            `<article class="photograph-medias__items">
+                <div class="${classMedia} photograph-medias__content" data-id="${id}">${baliseMedia}</div>
                 <div class="photograph-medias__description">
                     <p>
                         ${title}
@@ -108,12 +109,28 @@ function showAllLikes(totalLikesNumber, price) {
             <p class="price">${price}€/jour</p>`;
 }
 
-/**
- * @param {Object} media 
- * @param {string} photographerName 
- * @param {boolean} controls 
- * @returns {void}
- */
+function filterMediaby(allMedias, inputValue) {
+    if(inputValue === "date") {
+        allMedias.forEach(media => {
+            media.date = Date.parse(media.date);
+        });
+    }
+    const mediaByName = [...allMedias].sort(sortBy(`${inputValue}`));
+    console.log({ mediaByName })
+}
+
+function sortBy(inputValue) {
+    return function(person1, person2) {
+      if (person1[inputValue] > person2[inputValue]) {
+        return 1
+      }
+      if (person1[inputValue] < person2[inputValue]) {
+        return -1
+      }
+      return 0
+    }
+  }
+
 function mediaFactory(media, photographerName, controls) {
     let classMedia;
     let baliseMedia;
