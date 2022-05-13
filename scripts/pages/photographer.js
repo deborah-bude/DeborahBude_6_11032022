@@ -17,9 +17,10 @@ async function init() {
     const photographerArticle = photographerTemplate(photographer);
     photographerHeader.innerHTML = photographerArticle;
 
-    let { allMedias, articleMedias, numberLikes } = await mediasTemplate(id, photographerName);
+    const allMedias = await getMediasForPhotographer(id);
+    let { articleMedias, numberLikes } = await mediasTemplate(allMedias, photographerName);
     document.querySelector('.photograph-medias').innerHTML = articleMedias.join('');
-    
+
     const popupFactory = new PopupFactory(photographerName, allMedias)
 
     const articleMedia = document.querySelectorAll(".photograph-medias__content");
@@ -31,26 +32,11 @@ async function init() {
     document.querySelector('.totalLikes').innerHTML = divAllLikes;
 
     const filterMedias = document.getElementById("filter_medias");
-    filterMedias.addEventListener('input', () => filterMediaby(allMedias, filterMedias.value))
+    filterMedias.addEventListener('input', () => filterMediaby(allMedias, filterMedias.value, photographerName));
 
     const allMediasLikes = document.querySelectorAll(".photograph-medias__likes ");
     allMediasLikes.forEach(mediaLike => {
-        mediaLike.addEventListener("click", () => {
-            let allLikes = document.querySelector(".numberLikes");
-            let mediaLikeChild = mediaLike.childNodes[1];
-            
-            if (mediaLike.getAttribute('data-like') === "false") {
-                mediaLike.setAttribute('data-like', "true");
-                mediaLikeChild.innerHTML = parseInt(mediaLikeChild.innerHTML) + 1;
-                allLikes.innerHTML = parseInt(numberLikes) + 1;
-                numberLikes = parseInt(numberLikes) + 1
-            } else {
-                mediaLike.setAttribute('data-like', "false");
-                mediaLikeChild.innerHTML = parseInt(mediaLikeChild.innerHTML) - 1;
-                allLikes.innerHTML = parseInt(numberLikes) - 1;
-                numberLikes = parseInt(numberLikes) - 1
-            }
-        })
+        mediaLike.addEventListener("click", () => likeMedia(mediaLike, numberLikes))
     });
 };
 
@@ -73,8 +59,7 @@ function photographerTemplate(photographerData) {
     return photographer_description;
 }
 
-async function mediasTemplate(id, photographerName) {
-    const allMedias = await getMediasForPhotographer(id);
+function mediasTemplate(allMedias, photographerName) {
     let numberLikes = 0;
     let articleMedias = [];
     let controlVideo = false;
@@ -98,7 +83,7 @@ async function mediasTemplate(id, photographerName) {
             </article>`;
         articleMedias.push(article);
     })
-    return ({ allMedias, articleMedias, numberLikes });
+    return ({ articleMedias, numberLikes });
 }
 
 function showAllLikes(totalLikesNumber, price) {
@@ -109,27 +94,59 @@ function showAllLikes(totalLikesNumber, price) {
             <p class="price">${price}€/jour</p>`;
 }
 
-function filterMediaby(allMedias, inputValue) {
-    if(inputValue === "date") {
-        allMedias.forEach(media => {
+function likeMedia(mediaLike, numberLikes) {
+    let allLikes = document.querySelector(".numberLikes");
+    let mediaLikeChild = mediaLike.childNodes[1];
+
+    if (mediaLike.getAttribute('data-like') === "false") {
+        mediaLike.setAttribute('data-like', "true");
+        mediaLikeChild.innerHTML = parseInt(mediaLikeChild.innerHTML) + 1;
+        allLikes.innerHTML = parseInt(numberLikes) + 1;
+        numberLikes = parseInt(numberLikes) + 1
+    } else {
+        mediaLike.setAttribute('data-like', "false");
+        mediaLikeChild.innerHTML = parseInt(mediaLikeChild.innerHTML) - 1;
+        allLikes.innerHTML = parseInt(numberLikes) - 1;
+        numberLikes = parseInt(numberLikes) - 1
+    }
+}
+
+function filterMediaby(filterMedias, inputValue, photographerName) {
+    if (inputValue === "date") {
+        filterMedias.forEach(media => {
             media.date = Date.parse(media.date);
         });
     }
-    const mediaByName = [...allMedias].sort(sortBy(`${inputValue}`));
-    console.log({ mediaByName })
+    const mediaByName = [...filterMedias].sort(sortBy(`${inputValue}`));
+    let { articleMedias, numberLikes } = mediasTemplate(mediaByName, photographerName);
+    document.querySelector('.photograph-medias').innerHTML = articleMedias.join('');
+    let allLikes = document.querySelector(".numberLikes");
+    allLikes.innerHTML = numberLikes;
+
+    const popupFactory = new PopupFactory(photographerName, mediaByName);
+
+    const articleMedia = document.querySelectorAll(".photograph-medias__content");
+    articleMedia.forEach(article => {
+        article.addEventListener("click", () => popupFactory.mediaPopup(article))
+    });
+
+    const allMediasLikes = document.querySelectorAll(".photograph-medias__likes ");
+    allMediasLikes.forEach(mediaLike => {
+        mediaLike.addEventListener("click", () => likeMedia(mediaLike, numberLikes))
+    });
 }
 
 function sortBy(inputValue) {
-    return function(person1, person2) {
-      if (person1[inputValue] > person2[inputValue]) {
-        return 1
-      }
-      if (person1[inputValue] < person2[inputValue]) {
-        return -1
-      }
-      return 0
+    return function (person1, person2) {
+        if (person1[inputValue] > person2[inputValue]) {
+            return 1
+        }
+        if (person1[inputValue] < person2[inputValue]) {
+            return -1
+        }
+        return 0
     }
-  }
+}
 
 function mediaFactory(media, photographerName, controls) {
     let classMedia;

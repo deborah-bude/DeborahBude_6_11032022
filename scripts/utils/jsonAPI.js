@@ -18,10 +18,10 @@ async function getMediasForPhotographer(id) {
     let allMedias;
     return fetch('./data/photographers.json')
     .then(function (response) {
-        return response.json()
+        return response.json();
     })
     .then((object) => {
-        allMedias = object.media.filter(media => media.photographerId === id)
+        allMedias = object.media.filter(media => media.photographerId === id);
         return allMedias;
     })
     .catch(function (error) {
