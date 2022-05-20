@@ -1,5 +1,4 @@
 async function getPhotographers() {
-    let photographers;
     return fetch('./data/photographers.json')
     .then(function (response) {
         return response.json()
@@ -12,6 +11,12 @@ async function getPhotographers() {
     .catch(function (error) {
         console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
     });
+}
+
+async function getPhotographerById(photographerId) {
+    const { photographers } = await getPhotographers()
+    const id = parseInt(photographerId);
+    return photographers.find(p => p.id === id); 
 }
 
 async function getMediasForPhotographer(id) {

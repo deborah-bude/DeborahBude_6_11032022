@@ -13,14 +13,14 @@
 
 <body>
   <header>
-    <a href="./"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" /></a>
+    <a href="./"><img src="assets/images/logo.png" class="logo" alt="Fisheye photographers page" /></a>
   </header>
   <main id="main">
     <div class="photograph-header"></div>
 
     <div class="totalLikes"></div>
 
-    <section class="filter">
+    <div class="filter">
       <label for="filter_medias">Trier par </label>
 
       <select name="filter_medias" id="filter_medias">
@@ -28,15 +28,15 @@
         <option value="date" selected>Date</option>
         <option value="title">Titre</option>
       </select>
-    </section>
+    </div>
 
-    <section class="photograph-medias"></section>
-    <section class="popup">
-      <i class="fa-solid fa-xmark" id = "close" aria-label="Fermer la pop up"></i>
-      <i class="fa-solid fa-angle-left" id = "prev" aria-label="Média précédent"></i>
+    <div class="photograph-medias"></div>
+    <div class="popup">
+      <i class="fa-solid fa-xmark" id="close" title="Fermer la pop up"></i>
+      <i class="fa-solid fa-angle-left" id="prev" title="Média précédent"></i>
       <div></div>
-      <i class="fa-solid fa-angle-right" id = "next" aria-label="Média suivant"></i>
-    </section>
+      <i class="fa-solid fa-angle-right" id="next" title="Média suivant"></i>
+    </div>
   </main>
   <div id="contact_modal">
     <div class="modal">
