@@ -35,7 +35,7 @@ class PopupFactory {
         const focusableElements =
             'i, [tabindex]:not([tabindex="-1"])';
         const modal = document.querySelector('.popup');
-        focusElement(focusableElements, modal);
+        focusElementInModal(focusableElements, modal);
     }
 
     changeMediaPopup(originalMediaIndex) {

@@ -12,7 +12,7 @@ function displayModal() {
 
   const focusableElements =
   'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-  focusElement(focusableElements, modal);
+  focusElementInModal(focusableElements, modal);
 }
 
 function closeModal() {
