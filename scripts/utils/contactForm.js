@@ -2,6 +2,17 @@ function displayModal() {
   const modal = document.getElementById("contact_modal");
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
+
+  document.getElementById("close-contact").addEventListener("click", closeModal)
+  document.getElementById("close-contact").addEventListener("keydown", (e) => {
+      if (e.key === 'Enter') {
+        closeModal();
+      }
+  })
+
+  const focusableElements =
+  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  focusElement(focusableElements, modal);
 }
 
 function closeModal() {

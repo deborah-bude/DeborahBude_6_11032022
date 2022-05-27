@@ -32,17 +32,17 @@
 
     <div class="photograph-medias"></div>
     <div class="popup">
-      <i class="fa-solid fa-xmark" id="close" title="Fermer la pop up"></i>
-      <i class="fa-solid fa-angle-left" id="prev" title="Média précédent"></i>
+      <i class="fa-solid fa-xmark" id="close" title="Fermer la pop up" tabindex="0"></i>
+      <i class="fa-solid fa-angle-left" id="prev" title="Média précédent" tabindex="0"></i>
       <div></div>
-      <i class="fa-solid fa-angle-right" id="next" title="Média suivant"></i>
+      <i class="fa-solid fa-angle-right" id="next" title="Média suivant" tabindex="0"></i>
     </div>
   </main>
   <div id="contact_modal">
     <div class="modal">
       <header>
         <h2 class="contact_title" aria-labelledby="contact_modal">Contactez-moi</h2>
-        <img alt="Close Contact form" src="assets/icons/close.svg" onclick="closeModal()" />
+        <img id="close-contact" alt="Close Contact form" src="assets/icons/close.svg" tabindex="0"/>
       </header>
       <form>
         <div class="formData">

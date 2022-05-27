@@ -35,7 +35,12 @@ class PhotographerMedia {
 
         const articleMedia = document.querySelectorAll(".photograph-medias__content");
         articleMedia.forEach(article => {
-            article.addEventListener("click", () => popupFactory.mediaPopup(article))
+            article.addEventListener("click", () => popupFactory.mediaPopup(article));
+            article.addEventListener("keyup", (e) => {
+                if (e.key === 'Enter') {
+                    popupFactory.mediaPopup(article)
+                }
+            })
         });
 
         const divAllLikes = this.showAllLikes();
@@ -79,14 +84,14 @@ class PhotographerMedia {
             const { baliseMedia, classMedia } = mediaFactory(media, this.photographerName, controlVideo);
             numberLikes = numberLikes + likes;
             const article =
-            `<article class="photograph-medias__items">
-                <a role="link" aria-label="Ouvrir la popup sur ce média" class="${classMedia} photograph-medias__content" data-id="${id}">${baliseMedia}</a>
+                `<article class="photograph-medias__items">
+                <div tabindex="0" aria-label="Ouvrir la popup sur ce média" class="${classMedia} photograph-medias__content" data-id="${id}">${baliseMedia}</div>
                 <div class="photograph-medias__description">
                     <p>
                         ${title}
                     </p>
                     <button class="photograph-medias__likes" data-like="false">
-                        ${likes}
+                        <span>${likes}</span>
                         <i title="Aimer la photo" class="fa-solid fa-heart"></i>
                     </button>
                 </div>
@@ -144,6 +149,11 @@ class PhotographerMedia {
         const articleMedia = document.querySelectorAll(".photograph-medias__content");
         articleMedia.forEach(article => {
             article.addEventListener("click", () => popupFactory.mediaPopup(article))
+            article.addEventListener("keyup", (e) => {
+                if (e.key === 'Enter') {
+                    popupFactory.mediaPopup(article)
+                }
+            })
         });
 
         const allMediasLikes = document.querySelectorAll(".photograph-medias__likes ");
@@ -171,29 +181,58 @@ class PhotographerMedia {
 function mediaFactory(media, photographerName, controls) {
     let classMedia;
     let baliseMedia;
+    const photographerMediasFolder = photographerName.toLowerCase().replace(' ', '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     if (media.image) {
         classMedia = 'image';
-        baliseMedia = `<img loading="lazy" src="./assets/photos/${photographerName}/${media.image}" alt="${media.title}">`
+        baliseMedia = `<img loading="lazy" src="./assets/photos/${photographerMediasFolder}/${media.image}" alt="${media.title}">`
     } else if (media.video) {
         classMedia = 'video';
         if (controls === true) {
             baliseMedia =
-            `<video width="100%" height="240" controls>
+                `<video width="100%" height="240" controls>
                 <title>${media.title}</title>
-                <source src="./assets/photos/${photographerName}/${media.video}" type="video/mp4">
+                <source src="./assets/photos/${photographerMediasFolder}/${media.video}" type="video/mp4">
             </video>`;
         }
         else {
             baliseMedia =
-            `<video width="100" height="240">
+                `<video width="100" height="240">
                 <title>${media.title}</title>
-                <source src="./assets/photos/${photographerName}/${media.video}" type="video/mp4">
+                <source src="./assets/photos/${photographerMediasFolder}/${media.video}" type="video/mp4">
             </video>`;
         }
     }
 
     return { classMedia, baliseMedia };
+}
+
+function focusElement(focusableElements, modal) {
+    const firstFocusableElement = modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
+        const focusableContent = modal.querySelectorAll(focusableElements);
+        const lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
+
+        document.addEventListener('keydown', function (e) {
+            let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
+            if (!isTabPressed) {
+                return;
+            }
+
+            if (e.shiftKey) { // if shift key pressed for shift + tab combination
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus(); // add focus for the last focusable element
+                    e.preventDefault();
+                }
+            } else { // if tab key is pressed
+                if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
+                    firstFocusableElement.focus(); // add focus for the first focusable element
+                    e.preventDefault();
+                }
+            }
+        });
+
+        firstFocusableElement.focus();
 }
 
 init();

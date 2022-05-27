@@ -230,10 +230,11 @@ div.photograph-medias__description {
 
 .modal header img {
     cursor: pointer;
+    width: 35px;
 }
 
 .modal header h2 {
-    font-size: 4.8em;
+    font-size: 4rem;
     font-weight: normal;
     text-align: center;
 }
@@ -247,7 +248,7 @@ form {
 
 form label {
     color: #312e2e;
-    font-size: 3.6rem;
+    font-size: 2rem;
 }
 
 form div {
