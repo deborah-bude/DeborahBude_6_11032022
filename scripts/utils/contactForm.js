@@ -1,43 +1,48 @@
-function displayModal() {
+import {focusElementInModal} from "./focus-modal.js";
+
+export function displayModal() {
   const modal = document.getElementById("contact_modal");
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
 
-  document.getElementById("close-contact").addEventListener("click", closeModal)
+  document.getElementById("close-contact").addEventListener("click", closeModal);
   document.getElementById("close-contact").addEventListener("keydown", (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         closeModal();
       }
-  })
+  });
 
   const focusableElements =
-  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  "button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])";
   focusElementInModal(focusableElements, modal);
 }
 
-function closeModal() {
+export function closeModal() {
   const modal = document.getElementById("contact_modal");
   modal.style.display = "none";
   document.body.style.overflow = "auto";
+  setTimeout(() => {
+    document.querySelector(".contact_button").focus();
+  }, 0);
 }
 
 const validateForm = {
   first: false,
   last: false,
   email: false,
-}
+};
 
 const errorMessages = {
   first: "Votre prénom doit comporter au minimum deux caractères avec seulement des lettres.",
   last: "Votre nom doit comporter au minimum deux caractères avec seulement des lettres.",
   email: "Votre e-mail doit être saisie dans un format valide.",
-}
+};
 
 //Regex for validation
 const dataRegex = {
   name: /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/,
   email: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-}
+};
 
 // DOM Elements
 const submitButton = document.querySelector(".btn-submit");
@@ -51,13 +56,13 @@ const form = document.querySelector("form");
 firstNameInput.addEventListener("input", () => validateField(firstNameInput));
 lastNameInput.addEventListener("input", () => validateField(lastNameInput));
 emailInput.addEventListener("input", () => validateField(emailInput));
-form.addEventListener("submit", validate)
+form.addEventListener("submit", validate);
 
 // Validation of basic fields witch contain just texts or numbers
 function validateField(input) {
-  const name = input.getAttribute('name')
+  const name = input.getAttribute("name");
   let regex;
-  if (name === 'email') {
+  if (name === "email") {
     regex = dataRegex.email;
   } else {
     regex = dataRegex.name;
@@ -88,7 +93,7 @@ function validate(event) {
     console.log(`E-mail : ${emailInput.value} `);
     form.reset();
   } else {
-    console.log("Hum... quelque chose cloche...")
+    console.log("Hum... quelque chose cloche...");
     //Form error generation
     validateField(firstNameInput);
     validateField(lastNameInput);
