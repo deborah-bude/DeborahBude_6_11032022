@@ -1,0 +1,22 @@
+{
+  "name": "projet-6",
+  "version": "1.0.0",
+  "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deborah-bude/DeborahBude_6_11032022.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deborah-bude/DeborahBude_6_11032022/issues"
+  },
+  "homepage": "https://github.com/deborah-bude/DeborahBude_6_11032022#readme",
+  "devDependencies": {
+    "eslint": "^8.16.0"
+  }
+}
