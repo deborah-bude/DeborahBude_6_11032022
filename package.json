@@ -4,7 +4,8 @@
   "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "lint_fix": "eslint ./ --fix"
   },
   "repository": {
     "type": "git",

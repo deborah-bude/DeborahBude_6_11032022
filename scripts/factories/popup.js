@@ -3,85 +3,85 @@ import {mediaFactory} from "./media.js";
 
 export class PopupFactory {
 
-    constructor(photographerName, allMedias) {
-        this.photographerName = photographerName;
-        this.allMedias = allMedias;
-    }
+	constructor(photographerName, allMedias) {
+		this.photographerName = photographerName;
+		this.allMedias = allMedias;
+	}
 
-    mediaPopup(article) {
-        const attribute = parseInt(article.getAttribute("data-id"));
-        const mediaIndex = this.allMedias.findIndex(media => media.id === attribute);
-        let controlVideo = true;
+	mediaPopup(article) {
+		const attribute = parseInt(article.getAttribute("data-id"));
+		const mediaIndex = this.allMedias.findIndex(media => media.id === attribute);
+		let controlVideo = true;
 
-        const { baliseMedia } = mediaFactory(this.allMedias[mediaIndex], this.photographerName, controlVideo);
+		const { baliseMedia } = mediaFactory(this.allMedias[mediaIndex], this.photographerName, controlVideo);
 
-        this.popUpImg = document.querySelector(".popup div");
-        this.popUpImg.parentElement.style.display = "flex";
-        document.querySelector("body").style.overflowY = "hidden";
-        this.popUpImg.innerHTML = baliseMedia;
+		this.popUpImg = document.querySelector(".popup div");
+		this.popUpImg.parentElement.style.display = "flex";
+		document.querySelector("body").style.overflowY = "hidden";
+		this.popUpImg.innerHTML = baliseMedia;
 
-        this.changeMediaPopup(mediaIndex);
+		this.changeMediaPopup(mediaIndex);
 
-        const closePopup = document.querySelector("#close");
-        closePopup.addEventListener("click", () => {
-            this.popUpImg.parentElement.style.display = "none";
-            document.querySelector("body").style.overflowY = "auto";
-            setTimeout(() => {
-                article.focus();
-            }, 0);
-        });
-        closePopup.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                this.popUpImg.parentElement.style.display = "none";
-                document.querySelector("body").style.overflowY = "auto";
-                setTimeout(() => {
-                    article.focus();
-                }, 0);
-            }
-        });
+		const closePopup = document.querySelector("#close");
+		closePopup.addEventListener("click", () => {
+			this.popUpImg.parentElement.style.display = "none";
+			document.querySelector("body").style.overflowY = "auto";
+			setTimeout(() => {
+				article.focus();
+			}, 0);
+		});
+		closePopup.addEventListener("keydown", (e) => {
+			if (e.key === "Enter") {
+				this.popUpImg.parentElement.style.display = "none";
+				document.querySelector("body").style.overflowY = "auto";
+				setTimeout(() => {
+					article.focus();
+				}, 0);
+			}
+		});
 
-        // add all the elements inside modal which you want to make focusable
-        const focusableElements =
+		// add all the elements inside modal which you want to make focusable
+		const focusableElements =
             "i, [tabindex]:not([tabindex=\"-1\"])";
-        const modal = document.querySelector(".popup");
-        focusElementInModal(focusableElements, modal);
-    }
+		const modal = document.querySelector(".popup");
+		focusElementInModal(focusableElements, modal);
+	}
 
-    changeMediaPopup(originalMediaIndex) {
-        let newMediaIndex = originalMediaIndex;
+	changeMediaPopup(originalMediaIndex) {
+		let newMediaIndex = originalMediaIndex;
 
-        document.querySelector("#prev").addEventListener("click", () => {
-            const newMedia = this.allMedias[newMediaIndex - 1] ?? this.allMedias[this.allMedias.length - 1];
-            const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
-            newMediaIndex = newMediaIndex > 0 ? newMediaIndex - 1 : this.allMedias.length - 1;
+		document.querySelector("#prev").addEventListener("click", () => {
+			const newMedia = this.allMedias[newMediaIndex - 1] ?? this.allMedias[this.allMedias.length - 1];
+			const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
+			newMediaIndex = newMediaIndex > 0 ? newMediaIndex - 1 : this.allMedias.length - 1;
 
-            this.popUpImg.innerHTML = newMediaHTML;
-        });
-        document.querySelector("#prev").addEventListener("keyup", (e) => {
-            if (e.key === "Enter") {
-                const newMedia = this.allMedias[newMediaIndex - 1] ?? this.allMedias[this.allMedias.length - 1];
-                const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
-                newMediaIndex = newMediaIndex > 0 ? newMediaIndex - 1 : this.allMedias.length - 1;
+			this.popUpImg.innerHTML = newMediaHTML;
+		});
+		document.querySelector("#prev").addEventListener("keyup", (e) => {
+			if (e.key === "Enter") {
+				const newMedia = this.allMedias[newMediaIndex - 1] ?? this.allMedias[this.allMedias.length - 1];
+				const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
+				newMediaIndex = newMediaIndex > 0 ? newMediaIndex - 1 : this.allMedias.length - 1;
 
-                this.popUpImg.innerHTML = newMediaHTML;
-            }
-        });
+				this.popUpImg.innerHTML = newMediaHTML;
+			}
+		});
 
-        document.querySelector("#next").addEventListener("click", () => {
-            const newMedia = this.allMedias[newMediaIndex + 1] ?? this.allMedias[0];
-            const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
-            newMediaIndex = newMediaIndex === this.allMedias.length - 1 ? 0 : newMediaIndex + 1;
+		document.querySelector("#next").addEventListener("click", () => {
+			const newMedia = this.allMedias[newMediaIndex + 1] ?? this.allMedias[0];
+			const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
+			newMediaIndex = newMediaIndex === this.allMedias.length - 1 ? 0 : newMediaIndex + 1;
 
-            this.popUpImg.innerHTML = newMediaHTML;
-        });
-        document.querySelector("#next").addEventListener("keyup", (e) => {
-            if (e.key === "Enter") {
-                const newMedia = this.allMedias[newMediaIndex + 1] ?? this.allMedias[0];
-                const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
-                newMediaIndex = newMediaIndex === this.allMedias.length - 1 ? 0 : newMediaIndex + 1;
+			this.popUpImg.innerHTML = newMediaHTML;
+		});
+		document.querySelector("#next").addEventListener("keyup", (e) => {
+			if (e.key === "Enter") {
+				const newMedia = this.allMedias[newMediaIndex + 1] ?? this.allMedias[0];
+				const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
+				newMediaIndex = newMediaIndex === this.allMedias.length - 1 ? 0 : newMediaIndex + 1;
 
-                this.popUpImg.innerHTML = newMediaHTML;
-            }
-        });
-    }
+				this.popUpImg.innerHTML = newMediaHTML;
+			}
+		});
+	}
 }
