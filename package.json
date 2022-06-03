@@ -4,20 +4,27 @@
   "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
   "main": "index.js",
   "scripts": {
+    "prepare": "husky install",
     "lint": "eslint ./",
-    "lint_fix": "eslint ./ --fix"
+    "lint_fix": "eslint ./ --fix",
+    "prefix": "postcss ./css-without-prefix/photographer.css --use autoprefixer -d ./css/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/deborah-bude/DeborahBude_6_11032022.git"
   },
   "author": "",
+  "browserslist": "last 4 versions",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/deborah-bude/DeborahBude_6_11032022/issues"
   },
   "homepage": "https://github.com/deborah-bude/DeborahBude_6_11032022#readme",
   "devDependencies": {
-    "eslint": "^8.16.0"
+    "eslint": "^8.16.0",
+    "husky": "^8.0.1"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.7"
   }
 }
