@@ -1,4 +1,4 @@
-import {focusElementInModal} from "./focus-modal.js";
+import { focusElementInModal } from "./focus-modal.js";
 
 export function displayModal() {
 	const modal = document.getElementById("contact_modal");
@@ -13,12 +13,14 @@ export function displayModal() {
 	});
 
 	const focusableElements =
-  "button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])";
+		"button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])";
 	focusElementInModal(focusableElements, modal);
 }
 
 export function closeModal() {
 	const modal = document.getElementById("contact_modal");
+	form.style.display = "inline-block";
+	validationInscription.style.opacity = "0";
 	modal.style.display = "none";
 	document.body.style.overflow = "auto";
 	setTimeout(() => {
@@ -49,6 +51,7 @@ const firstNameInput = document.querySelector("#first");
 const lastNameInput = document.querySelector("#last");
 const emailInput = document.querySelector("#email");
 const form = document.querySelector("form");
+const validationInscription = document.querySelector(".confirmation_message");
 
 //Validate input
 firstNameInput.addEventListener("input", () => validateField(firstNameInput));
@@ -82,6 +85,8 @@ function validate(event) {
 	event.preventDefault();
 	// Checking each value of the validateForm table
 	if (Object.values(validateForm).every(value => value === true)) {
+		form.style.display = "none";
+		validationInscription.style.opacity = "1";
 		validateForm.first = false;
 		validateForm.last = false;
 		validateForm.email = false;
