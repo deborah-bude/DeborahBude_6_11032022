@@ -37,6 +37,7 @@ class PhotographerMedia {
 
 		const { articleMedias, numberLikes } = this.mediasTemplate(this.allMedias);
 		this.numberLikes = numberLikes;
+		this.initialNumberLikes = numberLikes;
 		document.querySelector(".photograph-medias").innerHTML = articleMedias.join("");
 
 		const popupFactory = new PopupFactory(this.photographerName, this.allMedias);
@@ -146,11 +147,12 @@ class PhotographerMedia {
 			});
 		}
 		const sortedMedias = originalMedias.sort(this.sortBy(property));
-		let { articleMedias, numberLikes } = this.mediasTemplate(sortedMedias);
+		let { articleMedias } = this.mediasTemplate(sortedMedias);
 		document.querySelector(".photograph-medias").innerHTML = articleMedias.join("");
 
 		let allLikes = document.querySelector(".numberLikes");
-		allLikes.innerHTML = numberLikes;
+		allLikes.innerHTML = this.initialNumberLikes;
+		this.numberLikes = this.initialNumberLikes;
 
 		const popupFactory = new PopupFactory(this.photographerName, sortedMedias);
 
@@ -166,7 +168,7 @@ class PhotographerMedia {
 
 		const allMediasLikes = document.querySelectorAll(".photograph-medias__likes ");
 		allMediasLikes.forEach(mediaLike => {
-			mediaLike.addEventListener("click", () => this.likeMedia(mediaLike, this.numberLikes));
+			mediaLike.addEventListener("click", () => this.likeMedia(mediaLike, this.initialNumberLikes));
 		});
 	}
 

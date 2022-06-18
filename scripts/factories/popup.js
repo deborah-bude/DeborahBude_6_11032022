@@ -39,6 +39,15 @@ export class PopupFactory {
 				}, 0);
 			}
 		});
+		document.querySelector(".popup").addEventListener("keydown", (e) => {
+			if (e.key === "Escape") {
+				this.popUpImg.parentElement.style.display = "none";
+				document.querySelector("body").style.overflowY = "auto";
+				setTimeout(() => {
+					article.focus();
+				}, 0);
+			}
+		});
 
 		// add all the elements inside modal which you want to make focusable
 		const focusableElements =
@@ -66,6 +75,15 @@ export class PopupFactory {
 				this.popUpImg.innerHTML = newMediaHTML;
 			}
 		});
+		document.querySelector(".popup").addEventListener("keyup", (e) => {
+			if (e.key === "ArrowLeft") {
+				const newMedia = this.allMedias[newMediaIndex - 1] ?? this.allMedias[this.allMedias.length - 1];
+				const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
+				newMediaIndex = newMediaIndex > 0 ? newMediaIndex - 1 : this.allMedias.length - 1;
+
+				this.popUpImg.innerHTML = newMediaHTML;
+			}
+		});
 
 		document.querySelector("#next").addEventListener("click", () => {
 			const newMedia = this.allMedias[newMediaIndex + 1] ?? this.allMedias[0];
@@ -76,6 +94,15 @@ export class PopupFactory {
 		});
 		document.querySelector("#next").addEventListener("keyup", (e) => {
 			if (e.key === "Enter") {
+				const newMedia = this.allMedias[newMediaIndex + 1] ?? this.allMedias[0];
+				const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
+				newMediaIndex = newMediaIndex === this.allMedias.length - 1 ? 0 : newMediaIndex + 1;
+
+				this.popUpImg.innerHTML = newMediaHTML;
+			}
+		});
+		document.querySelector(".popup").addEventListener("keyup", (e) => {
+			if (e.key === "ArrowRight") {
 				const newMedia = this.allMedias[newMediaIndex + 1] ?? this.allMedias[0];
 				const newMediaHTML = mediaFactory(newMedia, this.photographerName, true).baliseMedia;
 				newMediaIndex = newMediaIndex === this.allMedias.length - 1 ? 0 : newMediaIndex + 1;
